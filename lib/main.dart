@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import 'package:einkaufsliste/list_item.dart';
+
+const uuid = Uuid();
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,26 +18,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Einkaufsliste'),
+      home: const EinkaufslistePage(title: 'Einkaufsliste'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class EinkaufslistePage extends StatefulWidget {
+  const EinkaufslistePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<EinkaufslistePage> createState() => _EinkaufslistePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  final List<String> _list = ["Butter", "Milch", "Käse"];
+class _EinkaufslistePageState extends State<EinkaufslistePage> {
+  final List<ListItem> _list = [];
 
   void _addListItem() {
     setState(() {
-      _list.add("");
+      _list.add(ListItem(uuid.v4(), ""));
     });
   }
 
@@ -41,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // dragging from top to bottom
     if (oldIndex < newIndex) {
       int end = newIndex - 1;
-      String startItem = _list[oldIndex];
+      ListItem startItem = _list[oldIndex];
       int i = 0;
       int local = oldIndex;
       do {
@@ -52,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     // dragging from bottom to top
     else if (oldIndex > newIndex) {
-      String startItem = _list[oldIndex];
+      ListItem startItem = _list[oldIndex];
       for (int i = oldIndex; i > newIndex; i--) {
         _list[i] = _list[i - 1];
       }
@@ -69,12 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ReorderableListView(
           children: _list
               .map((e) => Container(
-                  key: Key(e),
+                  key: Key(e.key),
                   decoration:
                       BoxDecoration(border: Border.all(color: Colors.black54)),
                   child: ListTile(
-                    key: Key(e),
-                    title: Text(e),
+                    key: Key(e.key),
+                    title: Text(e.text),
                   )))
               .toList(),
           onReorder: (int oldIndex, int newIndex) {
