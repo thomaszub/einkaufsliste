@@ -24,26 +24,34 @@ class _ListWidgetState extends State<ListWidget> {
   }
 
   void _updateListOrder(int oldIndex, int newIndex) {
-    // dragging from top to bottom
-    if (oldIndex < newIndex) {
-      int end = newIndex - 1;
-      ListItem startItem = _list[oldIndex];
-      int i = 0;
-      int local = oldIndex;
-      do {
-        _list[local] = _list[++local];
-        i++;
-      } while (i < end - oldIndex);
-      _list[end] = startItem;
-    }
-    // dragging from bottom to top
-    else if (oldIndex > newIndex) {
-      ListItem startItem = _list[oldIndex];
-      for (int i = oldIndex; i > newIndex; i--) {
-        _list[i] = _list[i - 1];
+    setState(() {
+      // dragging from top to bottom
+      if (oldIndex < newIndex) {
+        int end = newIndex - 1;
+        ListItem startItem = _list[oldIndex];
+        int i = 0;
+        int local = oldIndex;
+        do {
+          _list[local] = _list[++local];
+          i++;
+        } while (i < end - oldIndex);
+        _list[end] = startItem;
       }
-      _list[newIndex] = startItem;
-    }
+      // dragging from bottom to top
+      else if (oldIndex > newIndex) {
+        ListItem startItem = _list[oldIndex];
+        for (int i = oldIndex; i > newIndex; i--) {
+          _list[i] = _list[i - 1];
+        }
+        _list[newIndex] = startItem;
+      }
+    });
+  }
+
+  void _updateListItem(ListItem newItem) {
+    setState(() {
+      _list[_list.indexWhere((e) => e.key == newItem.key)] = newItem;
+    });
   }
 
   @override
@@ -53,13 +61,10 @@ class _ListWidgetState extends State<ListWidget> {
         title: Text(widget.title),
       ),
       body: ReorderableListView(
-          children:
-              _list.map((e) => ListItemWidget(Key(e.key), e.text)).toList(),
-          onReorder: (int oldIndex, int newIndex) {
-            setState(() {
-              _updateListOrder(oldIndex, newIndex);
-            });
-          }),
+          children: _list
+              .map((e) => ListItemWidget(Key(e.key), e.text, _updateListItem))
+              .toList(),
+          onReorder: _updateListOrder),
       floatingActionButton: FloatingActionButton(
         onPressed: _addListItem,
         tooltip: 'Neuer Eintrag',
