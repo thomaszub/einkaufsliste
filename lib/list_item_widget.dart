@@ -1,6 +1,7 @@
+import 'package:einkaufsliste/check_widget.dart';
 import 'package:einkaufsliste/list_item.dart';
+import 'package:einkaufsliste/move_icon.dart';
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 
 class ListItemWidget extends StatefulWidget {
   final ListItem _item;
@@ -29,23 +30,36 @@ class _ListItemWidgetState extends State<ListItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    Widget textWidget;
+    if (widget._item.done) {
+      textWidget = Text(_controller.text,
+          style: const TextStyle(decoration: TextDecoration.lineThrough));
+    } else {
+      textWidget = TextField(
+          controller: _controller,
+          decoration: null,
+          onSubmitted: (value) => {
+                setState(() {
+                  widget._callback(ListItem(widget._item.key, value));
+                })
+              });
+    }
+
     return Container(
         key: widget.key,
         decoration: BoxDecoration(border: Border.all(color: Colors.black54)),
         child: ListTile(
             key: widget.key,
             leading: IconButton(
-              icon: const Icon(Icons.check_box),
-              onPressed: null,
+              icon: CheckWidget(null, widget._item.done),
+              onPressed: () => {
+                setState(() {
+                  widget._item.done = !widget._item.done;
+                  widget._callback(widget._item);
+                })
+              },
             ),
-            //leading: const Icon(Icons.check_box_outline_blank),
-            title: TextField(
-              controller: _controller,
-              onSubmitted: (value) =>
-                  widget._callback(ListItem(widget._item.key, value)),
-            ),
-            trailing: Transform.rotate(
-                angle: 0.5 * math.pi,
-                child: const Icon(Icons.compare_arrows))));
+            title: textWidget,
+            trailing: const MoveIcon()));
   }
 }
