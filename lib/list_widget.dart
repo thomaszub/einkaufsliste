@@ -19,7 +19,7 @@ class _ListWidgetState extends State<ListWidget> {
 
   void _addListItem() {
     setState(() {
-      _list.add(ListItem(uuid.v4(), ""));
+      _list.add(ListItem(Key(uuid.v4()), ""));
     });
   }
 
@@ -61,9 +61,8 @@ class _ListWidgetState extends State<ListWidget> {
         title: Text(widget.title),
       ),
       body: ReorderableListView(
-          children: _list
-              .map((e) => ListItemWidget(Key(e.key), e.text, _updateListItem))
-              .toList(),
+          children:
+              _list.map((e) => ListItemWidget(e, _updateListItem)).toList(),
           onReorder: _updateListOrder),
       floatingActionButton: FloatingActionButton(
         onPressed: _addListItem,

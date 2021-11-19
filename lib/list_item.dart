@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+
 class ListItem {
-  String key;
+  final Key key;
   String text;
   bool done = false;
 
