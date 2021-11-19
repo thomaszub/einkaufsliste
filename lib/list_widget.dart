@@ -27,10 +27,10 @@ class _ListWidgetState extends State<ListWidget> {
     setState(() {
       // dragging from top to bottom
       if (oldIndex < newIndex) {
-        int end = newIndex - 1;
-        ListItem startItem = _list[oldIndex];
-        int i = 0;
-        int local = oldIndex;
+        final end = newIndex - 1;
+        final startItem = _list[oldIndex];
+        var i = 0;
+        var local = oldIndex;
         do {
           _list[local] = _list[++local];
           i++;
@@ -39,8 +39,8 @@ class _ListWidgetState extends State<ListWidget> {
       }
       // dragging from bottom to top
       else if (oldIndex > newIndex) {
-        ListItem startItem = _list[oldIndex];
-        for (int i = oldIndex; i > newIndex; i--) {
+        final startItem = _list[oldIndex];
+        for (var i = oldIndex; i > newIndex; i--) {
           _list[i] = _list[i - 1];
         }
         _list[newIndex] = startItem;
