@@ -19,7 +19,7 @@ class _ListItemWidgetState extends State<ListItemWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _controller = TextEditingController(text: widget._item.text);
   }
 
   @override
