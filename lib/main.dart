@@ -10,12 +10,16 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Einkaufsliste',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const ListPage(title: 'Einkaufsliste'),
-    );
+    return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: MaterialApp(
+          title: 'Einkaufsliste',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const ListPage(title: 'Einkaufsliste'),
+        ));
   }
 }
