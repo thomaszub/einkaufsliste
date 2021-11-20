@@ -6,3 +6,4 @@ App fuer Einkaufsliste.
 
 * State neu designen
 * Bug: Absturz bei Bewegen, wenn State geändert wurde?
+* Fokussier Text von neuem Element
