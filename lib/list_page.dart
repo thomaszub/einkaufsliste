@@ -1,20 +1,20 @@
-import 'package:einkaufsliste/list_item.dart';
-import 'package:einkaufsliste/list_item_widget.dart';
+import 'package:einkaufsliste/component/list_item_widget.dart';
+import 'package:einkaufsliste/model/list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
-class ListWidget extends StatefulWidget {
-  const ListWidget({Key? key, required this.title}) : super(key: key);
+class ListPage extends StatefulWidget {
+  const ListPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  State<ListWidget> createState() => _ListWidgetState();
+  State<ListPage> createState() => _ListPageState();
 }
 
-class _ListWidgetState extends State<ListWidget> {
+class _ListPageState extends State<ListPage> {
   final List<ListItem> _list = [];
 
   void _addListItem() {

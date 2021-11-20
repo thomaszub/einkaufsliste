@@ -1,6 +1,6 @@
-import 'package:einkaufsliste/check_widget.dart';
-import 'package:einkaufsliste/list_item.dart';
-import 'package:einkaufsliste/move_icon.dart';
+import 'package:einkaufsliste/component/check_widget.dart';
+import 'package:einkaufsliste/component/move_icon.dart';
+import 'package:einkaufsliste/model/list_item.dart';
 import 'package:flutter/material.dart';
 
 class ListItemWidget extends StatefulWidget {

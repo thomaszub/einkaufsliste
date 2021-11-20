@@ -1,4 +1,4 @@
-import 'package:einkaufsliste/list_widget.dart';
+import 'package:einkaufsliste/list_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ListWidget(title: 'Einkaufsliste'),
+      home: const ListPage(title: 'Einkaufsliste'),
     );
   }
 }
